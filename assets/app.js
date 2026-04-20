@@ -6,9 +6,14 @@
 
   const STORAGE_KEY = "ai-workshop-form-v1";
   const PREFS_KEY = "ai-workshop-prefs-v1";
+  const CONFIG = window.AI_WORKSHOP_FORM_CONFIG || {};
+  const SUBMISSION_ENDPOINT = String(CONFIG.submissionEndpoint || "").trim();
+  const SUBMISSION_MODE = CONFIG.submissionMode || "no-cors";
   const STEPS = 6; // form steps (summit is step 7)
   const form = document.getElementById("workshop-form");
   const body = document.body;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const submitMessage = document.getElementById("submit-message");
 
   // -----------------------------------------------------------
   // Splash — first-view fullscreen mountain
@@ -560,8 +565,9 @@ ${ctx() || "(まだほとんど入力していません)"}
   // -----------------------------------------------------------
   // Submit / Summit
   // -----------------------------------------------------------
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    setSubmitMessage("");
     // validate all steps
     let firstBad = null;
     for (let i = 1; i <= STEPS; i++) {
@@ -575,17 +581,71 @@ ${ctx() || "(まだほとんど入力していません)"}
       }, 500);
       return;
     }
-    showSummit();
+    if (!SUBMISSION_ENDPOINT) {
+      setSubmitMessage("送信先が未設定です。運営側の保存先を設定してから送信してください。", "error");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const data = buildJson();
+      await submitResponse(data);
+      localStorage.removeItem(STORAGE_KEY);
+      showSummit(data);
+    } catch (err) {
+      setSubmitMessage("送信に失敗しました。通信状況を確認して、もう一度送信してください。", "error");
+    } finally {
+      setSubmitting(false);
+    }
   });
+
+  function setSubmitting(isSubmitting) {
+    if (!submitBtn) return;
+    submitBtn.disabled = isSubmitting;
+    const label = submitBtn.querySelector("span");
+    if (!label) return;
+    if (!submitBtn.dataset.idleLabel) submitBtn.dataset.idleLabel = label.textContent;
+    label.textContent = isSubmitting ? "送信中..." : submitBtn.dataset.idleLabel;
+  }
+
+  function setSubmitMessage(message, type) {
+    if (!submitMessage) return;
+    submitMessage.textContent = message || "";
+    submitMessage.dataset.type = type || "";
+  }
 
   function buildJson() {
     const data = currentFormData();
     data._meta = {
       savedAt: new Date().toISOString(),
+      submittedAt: new Date().toISOString(),
       workshop: "Deaf Engineers AI Workshop Vol.01",
-      workshopDate: "2026-05-31"
+      workshopDate: "2026-05-31",
+      pageUrl: window.location.href,
+      userAgent: navigator.userAgent
     };
     return data;
+  }
+
+  async function submitResponse(data) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15000);
+    try {
+      const options = {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(data),
+        signal: controller.signal
+      };
+      if (SUBMISSION_MODE === "no-cors") {
+        options.mode = "no-cors";
+      }
+      const res = await fetch(SUBMISSION_ENDPOINT, options);
+      if (SUBMISSION_MODE !== "no-cors" && !res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+    } finally {
+      clearTimeout(timer);
+    }
   }
 
   // ------- Email composition -------
@@ -670,7 +730,7 @@ ${ctx() || "(まだほとんど入力していません)"}
     }
   }
 
-  function showSummit() {
+  function showSummit(submittedData) {
     const overlay = document.getElementById("summit-overlay");
     overlay.classList.add("show");
     overlay.setAttribute("aria-hidden", "false");
@@ -679,7 +739,8 @@ ${ctx() || "(まだほとんど入力していません)"}
     updateClimber(7);
     // populate email receipt
     try {
-      const email = (currentFormData().email || "").trim();
+      const source = submittedData || currentFormData();
+      const email = (source.email || "").trim();
       const receipt = document.getElementById("email-receipt");
       const toEl = document.getElementById("receipt-to");
       if (receipt && toEl) {

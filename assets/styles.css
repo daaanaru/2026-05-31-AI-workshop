@@ -1166,6 +1166,20 @@ fieldset > legend .req {
 }
 .submit-state .missing { color: var(--route); }
 
+.submit-message {
+  min-height: 24px;
+  margin: 14px 0 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.submit-message[data-type="error"] {
+  color: var(--route);
+}
+.submit-message[data-type="ok"] {
+  color: var(--peak-mid);
+}
+
 /* ==========================================================================
    Success overlay — summit reached
    ========================================================================== */

@@ -17,10 +17,20 @@ https://daaanaru.github.io/2026-05-31-AI-workshop/
 ## Files
 
 - `index.html`: 公開フォーム
+- `assets/config.js`: フォーム送信先の設定
 - `assets/app.js`: フォームの動作
 - `assets/styles.css`: フォームの見た目
+- `backend/google-apps-script/`: Google Sheets保存用のApps Script
 - `PUBLICATION.md`: 公開作業ルール
 - `scripts/prepublish-check.sh`: 公開前チェック
+
+## Submission Backend
+
+フォーム回答は、`assets/config.js` の `submissionEndpoint` に設定したURLへ送信されます。
+
+Google Sheetsに保存する場合は、`backend/google-apps-script/README.md` の手順でApps Scriptをデプロイし、発行されたWeb app URLを `assets/config.js` に設定します。
+
+`submissionEndpoint` が空のままだと、フォームは送信完了になりません。
 
 ## Publish Check
 

@@ -23,8 +23,11 @@
 コミット対象は原則として以下に限定します。
 
 - `index.html`
+- `assets/config.js`
 - `assets/app.js`
 - `assets/styles.css`
+- `backend/google-apps-script/Code.gs`
+- `backend/google-apps-script/README.md`
 - `README.md`
 - `PUBLICATION.md`
 - `.gitignore`
@@ -53,3 +56,11 @@ GitHub Pages 反映後は、配信HTMLも確認します。
 ```sh
 curl -fsSL https://daaanaru.github.io/2026-05-31-AI-workshop/ | rg 'placeholder="なまえ"|例:'
 ```
+
+## Submission Backend
+
+フォーム回答は `assets/config.js` の `submissionEndpoint` に送信する。
+
+- Google Sheets保存の場合は `backend/google-apps-script/Code.gs` をApps Scriptに貼り付けてWebアプリとしてデプロイする
+- 発行されたWeb app URLを `assets/config.js` に設定する
+- `submissionEndpoint` が空の状態では送信完了にしない
