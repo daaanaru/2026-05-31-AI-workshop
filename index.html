@@ -1,0 +1,894 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI勉強会 事前フォーム — 登る山を決めよう</title>
+    <meta name="description" content="2026年5月31日開催のAI勉強会に向けた参加者プロフィールと事前宿題フォーム" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body data-time="dawn" data-motion="full" data-map="on">
+
+    <!-- ==========================================================
+         SPLASH — first-view big mountain
+         ========================================================== -->
+    <div class="splash" id="splash" aria-hidden="false">
+      <div class="splash-sky" aria-hidden="true"></div>
+      <svg class="splash-peaks" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <!-- sun -->
+        <circle class="sp-sun" cx="1180" cy="320" r="110" fill="url(#sp-sun-g)" />
+        <defs>
+          <radialGradient id="sp-sun-g">
+            <stop offset="0%" stop-color="#fff4d8" stop-opacity="0.95"/>
+            <stop offset="60%" stop-color="#fff4d8" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#fff4d8" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="sp-snow" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fff9ea"/>
+            <stop offset="100%" stop-color="#e6d7b7"/>
+          </linearGradient>
+        </defs>
+        <!-- far clouds -->
+        <ellipse cx="300" cy="380" rx="260" ry="26" fill="rgba(255,244,216,0.35)"/>
+        <ellipse cx="900" cy="420" rx="320" ry="22" fill="rgba(255,244,216,0.3)"/>
+        <!-- far ridge -->
+        <path class="sp-ridge sp-far" d="M0 600 L120 520 L240 560 L360 460 L480 520 L600 440 L780 500 L940 420 L1120 480 L1300 440 L1480 490 L1600 460 L1600 900 L0 900 Z"/>
+        <!-- mid ridge (big mountain) -->
+        <path class="sp-ridge sp-mid" d="M0 720 L140 620 L260 660 L400 540 L540 620 L700 480 L860 540 L1000 420 L1160 500 L1320 460 L1480 520 L1600 500 L1600 900 L0 900 Z"/>
+        <!-- snowcap on the biggest peak (around x=1000, y=420) -->
+        <path class="sp-snow" d="M860 540 L890 552 L920 548 L955 560 L985 548 L1000 420 L1018 510 L1045 552 L1075 540 L1110 558 L1140 548 L1160 500 Z" fill="url(#sp-snow)"/>
+        <!-- near ridge -->
+        <path class="sp-ridge sp-near" d="M0 820 L100 760 L220 790 L360 720 L500 790 L660 700 L820 780 L980 680 L1140 760 L1300 720 L1460 790 L1600 760 L1600 900 L0 900 Z"/>
+        <!-- tiny climber dot near summit -->
+        <circle class="sp-climber" cx="998" cy="428" r="4" fill="#1a1d26"/>
+      </svg>
+
+      <div class="splash-scrim" aria-hidden="true"></div>
+
+      <div class="splash-topbar" aria-hidden="true">
+        <span>DEAF ENGINEERS · AI WORKSHOP</span>
+        <span>2026.05.31</span>
+      </div>
+
+      <div class="splash-content">
+        <p class="splash-kicker" id="sp-k">VOL.01 · 参加者 事前フォーム</p>
+        <h1 class="splash-title" id="sp-t">
+          <span class="sp-l sp-l1">登る</span><span class="sp-l sp-l2">山を</span><span class="sp-l sp-l3">決めよう。</span>
+        </h1>
+        <p class="splash-lede" id="sp-p">
+          2026年5月31日、12時間。まずは、あなたがどこから登るのか教えてください。
+        </p>
+        <button class="splash-cta" id="sp-cta" type="button">
+          <span>事前入力を始める</span>
+          <span class="splash-arrow" aria-hidden="true"></span>
+        </button>
+        <p class="splash-hint" id="sp-h">scroll or click to begin ↓</p>
+      </div>
+
+      <button class="splash-skip" id="sp-skip" type="button" aria-label="スキップ">SKIP →</button>
+    </div>
+
+    <div class="shell">
+
+      <!-- ==========================================================
+           LEFT — Route map
+           ========================================================== -->
+      <aside class="map-rail" aria-label="ルート地図">
+        <div class="map-head">
+          <span><span class="nib"></span>ROUTE MAP</span>
+          <span class="coord">N 35°41′ / E 139°41′</span>
+        </div>
+
+        <div class="map-progress" aria-hidden="true">
+          <span id="mobile-progress-label">STEP 00 / 06 — Base</span>
+          <div class="bar"><span id="mobile-progress-bar"></span></div>
+        </div>
+
+        <svg class="map-svg" viewBox="0 0 260 560" preserveAspectRatio="xMidYMid meet" aria-hidden="true" id="route-svg">
+          <!-- topographic rings (decorative) -->
+          <g stroke="rgba(138,122,92,0.22)" fill="none" stroke-width="0.7">
+            <ellipse cx="130" cy="90" rx="52" ry="28"/>
+            <ellipse cx="130" cy="90" rx="38" ry="20"/>
+            <ellipse cx="130" cy="90" rx="24" ry="12"/>
+            <ellipse cx="130" cy="90" rx="12" ry="6"/>
+          </g>
+          <g stroke="rgba(138,122,92,0.14)" fill="none" stroke-width="0.6" stroke-dasharray="1 3">
+            <path d="M 20 530 Q 80 500 130 430"/>
+            <path d="M 240 530 Q 180 500 130 430"/>
+          </g>
+
+          <!-- climbing route (dashed planned) -->
+          <path class="route-path" id="planned-route"
+                d="M 40 530 L 70 470 L 105 410 L 135 345 L 165 280 L 195 215 L 150 150 L 130 90" />
+          <!-- traced progress -->
+          <path class="route-trace" id="trace-route"
+                d="M 40 530 L 70 470 L 105 410 L 135 345 L 165 280 L 195 215 L 150 150 L 130 90" />
+
+          <!-- stations 0..6 -->
+          <g id="stations">
+            <!-- Base camp -->
+            <g class="station" data-step="0" transform="translate(40 530)">
+              <circle class="outer" r="8"/><circle class="inner" r="3"/>
+              <text x="14" y="-6">600M</text>
+              <text x="14" y="6" class="label">Base Camp</text>
+            </g>
+            <g class="station" data-step="1" transform="translate(70 470)">
+              <circle class="outer" r="7"/><circle class="inner" r="2.5"/>
+              <text x="14" y="-4">800M</text>
+              <text x="14" y="6" class="label">01 現在地</text>
+            </g>
+            <g class="station" data-step="2" transform="translate(105 410)">
+              <circle class="outer" r="7"/><circle class="inner" r="2.5"/>
+              <text x="14" y="-4">1200M</text>
+              <text x="14" y="6" class="label">02 装備</text>
+            </g>
+            <g class="station" data-step="3" transform="translate(135 345)">
+              <circle class="outer" r="7"/><circle class="inner" r="2.5"/>
+              <text x="14" y="-4">1800M</text>
+              <text x="14" y="6" class="label">03 道具</text>
+            </g>
+            <g class="station" data-step="4" transform="translate(165 280)">
+              <circle class="outer" r="7"/><circle class="inner" r="2.5"/>
+              <text x="14" y="-4">2400M</text>
+              <text x="14" y="6" class="label">04 分かれ道</text>
+            </g>
+            <g class="station" data-step="5" transform="translate(195 215)">
+              <circle class="outer" r="7"/><circle class="inner" r="2.5"/>
+              <text x="-44" y="-4">2900M</text>
+              <text x="-44" y="6" class="label">05 宿題</text>
+            </g>
+            <g class="station" data-step="6" transform="translate(150 150)">
+              <circle class="outer" r="7"/><circle class="inner" r="2.5"/>
+              <text x="-58" y="-4">3100M</text>
+              <text x="-58" y="6" class="label">06 当日準備</text>
+            </g>
+            <!-- summit -->
+            <g class="station" data-step="7" transform="translate(130 90)">
+              <circle class="outer" r="9"/><circle class="inner" r="3"/>
+              <text x="14" y="-6">3200M</text>
+              <text x="14" y="6" class="label">Summit</text>
+              <g class="summit-flag" id="summit-flag" transform="translate(0 -10)">
+                <line class="pole" x1="0" y1="0" x2="0" y2="-22"/>
+                <polygon class="cloth" points="0,-22 16,-18 0,-14"/>
+              </g>
+            </g>
+          </g>
+
+          <!-- climber marker -->
+          <g class="climber" id="climber" transform="translate(40 530)">
+            <circle class="pack" cx="0" cy="-2" r="5"/>
+            <circle class="body" cx="0" cy="-10" r="3"/>
+          </g>
+        </svg>
+
+        <div class="map-legend">
+          <div class="kv"><span>DATE</span><b>05.31</b></div>
+          <div class="kv"><span>DURATION</span><b>12H</b></div>
+          <div class="kv"><span>CREW</span><b><span id="crew-count">0</span> / 6</b></div>
+          <div class="kv"><span>TZ</span><b>JST+9</b></div>
+        </div>
+      </aside>
+
+      <!-- ==========================================================
+           RIGHT — Main
+           ========================================================== -->
+      <div class="main-col">
+
+        <!-- HERO -->
+        <header class="hero" aria-label="AI勉強会の導入">
+          <div class="sky" aria-hidden="true"></div>
+          <div class="peaks" aria-hidden="true">
+            <svg viewBox="0 0 1200 400" preserveAspectRatio="none">
+              <!-- far ridges -->
+              <path d="M0 320 L140 240 L240 280 L360 200 L480 260 L620 180 L760 240 L900 170 L1040 220 L1200 180 L1200 400 L0 400 Z" fill="var(--peak-far)" opacity="0.55"/>
+              <!-- mid ridges -->
+              <path d="M0 360 L100 300 L220 340 L340 260 L460 320 L580 250 L720 310 L860 240 L1000 300 L1140 260 L1200 280 L1200 400 L0 400 Z" fill="var(--peak-mid)" opacity="0.85"/>
+              <!-- near ridges -->
+              <path d="M0 400 L80 360 L180 380 L300 330 L420 370 L540 320 L660 360 L800 300 L940 350 L1080 310 L1200 340 L1200 400 L0 400 Z" fill="var(--peak-near)"/>
+              <!-- snow caps -->
+              <path d="M580 250 L594 256 L606 254 L616 259 L628 251 L640 258 L650 253 L660 259 L672 253 L680 258 L720 310 Z" fill="var(--snow)" opacity="0.85"/>
+              <path d="M860 240 L874 246 L884 244 L896 249 L908 244 L918 250 L926 246 L938 250 L948 247 L1000 300 Z" fill="var(--snow)" opacity="0.85"/>
+            </svg>
+          </div>
+
+          <nav class="topbar" aria-label="開催情報">
+            <span class="brand">
+              <svg class="brand-mark" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M2 17 L7 8 L10 12 L14 5 L18 17 Z" fill="currentColor"/>
+                <circle cx="15" cy="3.5" r="1.5" fill="var(--route)"/>
+              </svg>
+              <span>Deaf Engineers AI Workshop</span>
+            </span>
+            <span class="date-block">
+              2026.05.31 SUN
+              <small>9:00 — 21:00 JST</small>
+            </span>
+          </nav>
+
+          <div class="hero-copy">
+            <p class="kicker">AI Workshop · Vol.01 · 参加者 事前フォーム</p>
+            <h1>登る<span class="r">山</span>を<br/>決めよう。</h1>
+            <p class="lede">
+              マルチエージェントで開発ワークフローを自分たちで作ろう。<br/>
+              まずはあなたと登る山を決めたい。
+            </p>
+
+            <div class="hero-meta" role="list">
+              <div class="hm-item" role="listitem">
+                <span class="hm-label">WHEN</span>
+                <span class="hm-value">2026 / 05 / 31  Sun</span>
+              </div>
+              <div class="hm-item" role="listitem">
+                <span class="hm-label">DURATION</span>
+                <span class="hm-value">09:00 — 21:00</span>
+              </div>
+              <div class="hm-item" role="listitem">
+                <span class="hm-label">APPLIED</span>
+                <span class="hm-value"><span id="crew-count-hero">0</span> / 6 engineers</span>
+              </div>
+              <div class="hm-item" role="listitem">
+                <span class="hm-label">BRING</span>
+                <span class="hm-value">Your PC</span>
+              </div>
+            </div>
+
+            <a class="hero-action" href="#step-1" data-jump="1">
+              <span>事前入力を始める</span>
+              <span class="arrow" aria-hidden="true"></span>
+            </a>
+          </div>
+        </header>
+
+        <!-- INTRO -->
+        <section class="intro">
+          <div class="intro-inner">
+            <p class="section-label">The Mountain</p>
+            <h2>この1日で目指すところ</h2>
+            <p>
+              初回のAI勉強会では、AIツールの紹介だけで終わらせず、デフエンジニアが自分たちの開発・会議・情報共有をAIでどう強くできるかを考えます。
+            </p>
+            <p>
+              朝から晩までの12時間、最後はチームで小さな成果物か、明日から運用できるワークフローを発表して山頂に旗を立てます。このフォームは、当日のチーム分け・テーマ選び・ハンズオン調整のための現在地調査です。
+            </p>
+
+            <div class="intro-stats">
+              <div class="stat"><span class="n">12<small>h</small></span><span class="l">Duration</span></div>
+              <div class="stat"><span class="n">06</span><span class="l">Participants</span></div>
+              <div class="stat"><span class="n">06</span><span class="l">Sections</span></div>
+              <div class="stat"><span class="n">∞</span><span class="l">AI Tools</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FORM FLOW -->
+        <form id="workshop-form" class="form-flow" autocomplete="on" novalidate>
+
+          <!-- STEP 01 -->
+          <section class="form-step" id="step-1" data-step="1">
+            <div class="step-head">
+              <div class="step-number">01</div>
+              <div class="step-title">
+                <h2>まず、あなたの現在地</h2>
+                <p>当日のチーム分けとテーマ選びに使います。気軽に。</p>
+              </div>
+              <div class="step-altitude">
+                <b>800m</b>
+                <span>登山口</span>
+                <span class="alt-band">Trailhead</span>
+              </div>
+            </div>
+
+            <div class="fields">
+              <div class="field">
+                <label class="label" for="f-name">呼ばれ方 <span class="req">REQ</span></label>
+                <span class="hint">当日スタッフが呼ぶ名前。本名でもニックネームでもOK。</span>
+                <input id="f-name" name="displayName" type="text" placeholder="なまえ" required />
+                <div class="error-msg">入力してください</div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="f-github">GitHubアカウント <span class="opt">Optional</span></label>
+                <span class="hint">@なしのユーザ名だけで大丈夫です。</span>
+                <input id="f-github" name="github" type="text" placeholder="例: octocat" />
+              </div>
+
+              <div class="field">
+                <label class="label" for="f-email">連絡用メールアドレス <span class="req">REQ</span></label>
+                <span class="hint">送信内容の控えを、このアドレス宛てに送れるようにします。</span>
+                <input id="f-email" name="email" type="email" placeholder="you@example.com" required />
+                <div class="error-msg">メールアドレスを入力してください</div>
+              </div>
+
+              <div class="field" data-prompt="skills">
+                <label class="label" for="f-skills">普段の開発領域・得意技術 <span class="req">REQ</span></label>
+                <span class="hint">箇条書きで構いません。チーム分けの参考にします。</span>
+                <textarea id="f-skills" name="skills" rows="4" placeholder="例: Webフロント、Rails、インフラ、Flutter、データ分析…" required></textarea>
+                <div class="field-tools">
+                  <button type="button" class="prompt-btn" data-prompt-for="skills">
+                    <span class="pb-icon" aria-hidden="true">✦</span>
+                    <span class="pb-label">AIに相談するプロンプトをコピー</span>
+                    <span class="pb-hint">回答に迷ったら</span>
+                  </button>
+                  <div class="counter"><span class="now">0</span> / 400</div>
+                </div>
+                <div class="error-msg">入力してください</div>
+              </div>
+            </div>
+
+            <div class="step-nav">
+              <button type="button" class="prev" disabled>トレイルヘッド</button>
+              <button type="button" class="next" data-jump="2">次の標高へ</button>
+            </div>
+          </section>
+
+          <!-- STEP 02 -->
+          <section class="form-step" id="step-2" data-step="2">
+            <div class="step-head">
+              <div class="step-number">02</div>
+              <div class="step-title">
+                <h2>PCを持って山に入る</h2>
+                <p>当日はPC必須です。環境差を見てハンズオンを調整します。</p>
+              </div>
+              <div class="step-altitude">
+                <b>1200m</b>
+                <span>森林帯</span>
+                <span class="alt-band">Forest</span>
+              </div>
+            </div>
+
+            <div class="fields">
+              <fieldset>
+                <legend>持ってくるPC <span class="req">REQ</span></legend>
+                <div class="option-grid">
+                  <label class="opt radio"><input type="radio" name="pcType" value="Mac" required /><span class="box"></span>Mac</label>
+                  <label class="opt radio"><input type="radio" name="pcType" value="Windows" /><span class="box"></span>Windows</label>
+                  <label class="opt radio"><input type="radio" name="pcType" value="Linux" /><span class="box"></span>Linux</label>
+                  <label class="opt radio"><input type="radio" name="pcType" value="Other" /><span class="box"></span>その他</label>
+                </div>
+              </fieldset>
+
+              <div class="field">
+                <label class="label" for="f-pcdetail">PCの補足 <span class="opt">Optional</span></label>
+                <input id="f-pcdetail" name="pcDetail" type="text" placeholder="例: MacBook Air M2 / Windows 11 WSL有 / RAM 16GB" />
+              </div>
+
+              <fieldset>
+                <legend>当日使えそうな環境 <span class="opt" style="border:none;color:var(--ink-soft);">複数可</span></legend>
+                <div class="check-grid">
+                  <label class="opt check"><input type="checkbox" name="environment" value="Browser" /><span class="box"></span>ブラウザ</label>
+                  <label class="opt check"><input type="checkbox" name="environment" value="Git" /><span class="box"></span>Git</label>
+                  <label class="opt check"><input type="checkbox" name="environment" value="VS Code" /><span class="box"></span>VS Code</label>
+                  <label class="opt check"><input type="checkbox" name="environment" value="Terminal" /><span class="box"></span>ターミナル</label>
+                  <label class="opt check"><input type="checkbox" name="environment" value="Node.js" /><span class="box"></span>Node.js</label>
+                  <label class="opt check"><input type="checkbox" name="environment" value="Python" /><span class="box"></span>Python</label>
+                  <label class="opt check"><input type="checkbox" name="environment" value="Docker" /><span class="box"></span>Docker</label>
+                  <label class="opt check"><input type="checkbox" name="environment" value="Claude Code" /><span class="box"></span>Claude Code</label>
+                </div>
+              </fieldset>
+
+              <label class="confirm">
+                <input name="pcRequired" type="checkbox" required />
+                <span>当日はPCを持参します</span>
+              </label>
+            </div>
+
+            <div class="step-nav">
+              <button type="button" class="prev" data-jump="1">戻る</button>
+              <button type="button" class="next" data-jump="3">次の標高へ</button>
+            </div>
+          </section>
+
+          <!-- STEP 03 -->
+          <section class="form-step" id="step-3" data-step="3">
+            <div class="step-head">
+              <div class="step-number">03</div>
+              <div class="step-title">
+                <h2>今、あなたの道具箱</h2>
+                <p>プライベートで使っているAIツールを中心に教えてください。</p>
+              </div>
+              <div class="step-altitude">
+                <b>1800m</b>
+                <span>稜線直下</span>
+                <span class="alt-band">Treeline</span>
+              </div>
+            </div>
+
+            <div class="fields">
+              <div class="field">
+                <label class="label">ツールごとの使用感 <span class="req">REQ</span></label>
+                <span class="hint">各ツールについて、今の「温度感」を選んでください。未使用はそのままでOK。</span>
+
+                <div class="tool-matrix" role="group" aria-label="ツールごとの使用感">
+                  <div class="tool-matrix-head">
+                    <span class="mh-tool">ツール</span>
+                    <span class="mh-scale">
+                      <span>使ってない</span>
+                      <span>気になってる</span>
+                      <span>たまに</span>
+                      <span>週数回</span>
+                      <span>めっちゃ</span>
+                      <span>仕事で</span>
+                    </span>
+                    <span class="mh-paid" title="課金しているか(任意)">課金</span>
+                  </div>
+
+                  <div class="tool-rows">
+                  <div class="tool-row" data-tool="ChatGPT">
+                    <span class="tr-name">ChatGPT</span>
+                    <div class="tr-scale" role="radiogroup" aria-label="ChatGPT の使用感">
+                      <label class="lv lv0"><input type="radio" name="usage_ChatGPT" value="none" checked /><span class="dot"></span><span class="lv-label">使ってない</span></label>
+                      <label class="lv lv1"><input type="radio" name="usage_ChatGPT" value="curious" /><span class="dot"></span><span class="lv-label">気になってる</span></label>
+                      <label class="lv lv2"><input type="radio" name="usage_ChatGPT" value="occasional" /><span class="dot"></span><span class="lv-label">たまに</span></label>
+                      <label class="lv lv3"><input type="radio" name="usage_ChatGPT" value="weekly" /><span class="dot"></span><span class="lv-label">週数回</span></label>
+                      <label class="lv lv4"><input type="radio" name="usage_ChatGPT" value="heavy" /><span class="dot"></span><span class="lv-label">めっちゃ</span></label>
+                      <label class="lv lv5"><input type="radio" name="usage_ChatGPT" value="work" /><span class="dot"></span><span class="lv-label">仕事で</span></label>
+                    </div>
+                    <label class="tr-paid" title="課金している(任意)">
+                      <input type="checkbox" name="paid_ChatGPT" value="yes" />
+                      <span class="paid-chip" aria-hidden="true">¥</span>
+                      <span class="sr-only">ChatGPT に課金している</span>
+                    </label>
+                  </div>
+
+                  <div class="tool-row" data-tool="Claude">
+                    <span class="tr-name">Claude</span>
+                    <div class="tr-scale" role="radiogroup" aria-label="Claude の使用感">
+                      <label class="lv lv0"><input type="radio" name="usage_Claude" value="none" checked /><span class="dot"></span><span class="lv-label">使ってない</span></label>
+                      <label class="lv lv1"><input type="radio" name="usage_Claude" value="curious" /><span class="dot"></span><span class="lv-label">気になってる</span></label>
+                      <label class="lv lv2"><input type="radio" name="usage_Claude" value="occasional" /><span class="dot"></span><span class="lv-label">たまに</span></label>
+                      <label class="lv lv3"><input type="radio" name="usage_Claude" value="weekly" /><span class="dot"></span><span class="lv-label">週数回</span></label>
+                      <label class="lv lv4"><input type="radio" name="usage_Claude" value="heavy" /><span class="dot"></span><span class="lv-label">めっちゃ</span></label>
+                      <label class="lv lv5"><input type="radio" name="usage_Claude" value="work" /><span class="dot"></span><span class="lv-label">仕事で</span></label>
+                    </div>
+                    <label class="tr-paid" title="課金している(任意)">
+                      <input type="checkbox" name="paid_Claude" value="yes" />
+                      <span class="paid-chip" aria-hidden="true">¥</span>
+                      <span class="sr-only">Claude に課金している</span>
+                    </label>
+                  </div>
+
+                  <div class="tool-row" data-tool="Gemini">
+                    <span class="tr-name">Gemini</span>
+                    <div class="tr-scale" role="radiogroup" aria-label="Gemini の使用感">
+                      <label class="lv lv0"><input type="radio" name="usage_Gemini" value="none" checked /><span class="dot"></span><span class="lv-label">使ってない</span></label>
+                      <label class="lv lv1"><input type="radio" name="usage_Gemini" value="curious" /><span class="dot"></span><span class="lv-label">気になってる</span></label>
+                      <label class="lv lv2"><input type="radio" name="usage_Gemini" value="occasional" /><span class="dot"></span><span class="lv-label">たまに</span></label>
+                      <label class="lv lv3"><input type="radio" name="usage_Gemini" value="weekly" /><span class="dot"></span><span class="lv-label">週数回</span></label>
+                      <label class="lv lv4"><input type="radio" name="usage_Gemini" value="heavy" /><span class="dot"></span><span class="lv-label">めっちゃ</span></label>
+                      <label class="lv lv5"><input type="radio" name="usage_Gemini" value="work" /><span class="dot"></span><span class="lv-label">仕事で</span></label>
+                    </div>
+                    <label class="tr-paid" title="課金している(任意)">
+                      <input type="checkbox" name="paid_Gemini" value="yes" />
+                      <span class="paid-chip" aria-hidden="true">¥</span>
+                      <span class="sr-only">Gemini に課金している</span>
+                    </label>
+                  </div>
+
+                  <div class="tool-row" data-tool="GitHub Copilot">
+                    <span class="tr-name">GitHub Copilot</span>
+                    <div class="tr-scale" role="radiogroup" aria-label="GitHub Copilot の使用感">
+                      <label class="lv lv0"><input type="radio" name="usage_GitHubCopilot" value="none" checked /><span class="dot"></span><span class="lv-label">使ってない</span></label>
+                      <label class="lv lv1"><input type="radio" name="usage_GitHubCopilot" value="curious" /><span class="dot"></span><span class="lv-label">気になってる</span></label>
+                      <label class="lv lv2"><input type="radio" name="usage_GitHubCopilot" value="occasional" /><span class="dot"></span><span class="lv-label">たまに</span></label>
+                      <label class="lv lv3"><input type="radio" name="usage_GitHubCopilot" value="weekly" /><span class="dot"></span><span class="lv-label">週数回</span></label>
+                      <label class="lv lv4"><input type="radio" name="usage_GitHubCopilot" value="heavy" /><span class="dot"></span><span class="lv-label">めっちゃ</span></label>
+                      <label class="lv lv5"><input type="radio" name="usage_GitHubCopilot" value="work" /><span class="dot"></span><span class="lv-label">仕事で</span></label>
+                    </div>
+                    <label class="tr-paid" title="課金している(任意)">
+                      <input type="checkbox" name="paid_GitHubCopilot" value="yes" />
+                      <span class="paid-chip" aria-hidden="true">¥</span>
+                      <span class="sr-only">GitHub Copilot に課金している</span>
+                    </label>
+                  </div>
+
+                  <div class="tool-row" data-tool="Cursor">
+                    <span class="tr-name">Cursor</span>
+                    <div class="tr-scale" role="radiogroup" aria-label="Cursor の使用感">
+                      <label class="lv lv0"><input type="radio" name="usage_Cursor" value="none" checked /><span class="dot"></span><span class="lv-label">使ってない</span></label>
+                      <label class="lv lv1"><input type="radio" name="usage_Cursor" value="curious" /><span class="dot"></span><span class="lv-label">気になってる</span></label>
+                      <label class="lv lv2"><input type="radio" name="usage_Cursor" value="occasional" /><span class="dot"></span><span class="lv-label">たまに</span></label>
+                      <label class="lv lv3"><input type="radio" name="usage_Cursor" value="weekly" /><span class="dot"></span><span class="lv-label">週数回</span></label>
+                      <label class="lv lv4"><input type="radio" name="usage_Cursor" value="heavy" /><span class="dot"></span><span class="lv-label">めっちゃ</span></label>
+                      <label class="lv lv5"><input type="radio" name="usage_Cursor" value="work" /><span class="dot"></span><span class="lv-label">仕事で</span></label>
+                    </div>
+                    <label class="tr-paid" title="課金している(任意)">
+                      <input type="checkbox" name="paid_Cursor" value="yes" />
+                      <span class="paid-chip" aria-hidden="true">¥</span>
+                      <span class="sr-only">Cursor に課金している</span>
+                    </label>
+                  </div>
+
+                  <div class="tool-row" data-tool="Codex">
+                    <span class="tr-name">Codex</span>
+                    <div class="tr-scale" role="radiogroup" aria-label="Codex の使用感">
+                      <label class="lv lv0"><input type="radio" name="usage_Codex" value="none" checked /><span class="dot"></span><span class="lv-label">使ってない</span></label>
+                      <label class="lv lv1"><input type="radio" name="usage_Codex" value="curious" /><span class="dot"></span><span class="lv-label">気になってる</span></label>
+                      <label class="lv lv2"><input type="radio" name="usage_Codex" value="occasional" /><span class="dot"></span><span class="lv-label">たまに</span></label>
+                      <label class="lv lv3"><input type="radio" name="usage_Codex" value="weekly" /><span class="dot"></span><span class="lv-label">週数回</span></label>
+                      <label class="lv lv4"><input type="radio" name="usage_Codex" value="heavy" /><span class="dot"></span><span class="lv-label">めっちゃ</span></label>
+                      <label class="lv lv5"><input type="radio" name="usage_Codex" value="work" /><span class="dot"></span><span class="lv-label">仕事で</span></label>
+                    </div>
+                    <label class="tr-paid" title="課金している(任意)">
+                      <input type="checkbox" name="paid_Codex" value="yes" />
+                      <span class="paid-chip" aria-hidden="true">¥</span>
+                      <span class="sr-only">Codex に課金している</span>
+                    </label>
+                  </div>
+
+                  <div class="tool-row" data-tool="Claude Code">
+                    <span class="tr-name">Claude Code</span>
+                    <div class="tr-scale" role="radiogroup" aria-label="Claude Code の使用感">
+                      <label class="lv lv0"><input type="radio" name="usage_ClaudeCode" value="none" checked /><span class="dot"></span><span class="lv-label">使ってない</span></label>
+                      <label class="lv lv1"><input type="radio" name="usage_ClaudeCode" value="curious" /><span class="dot"></span><span class="lv-label">気になってる</span></label>
+                      <label class="lv lv2"><input type="radio" name="usage_ClaudeCode" value="occasional" /><span class="dot"></span><span class="lv-label">たまに</span></label>
+                      <label class="lv lv3"><input type="radio" name="usage_ClaudeCode" value="weekly" /><span class="dot"></span><span class="lv-label">週数回</span></label>
+                      <label class="lv lv4"><input type="radio" name="usage_ClaudeCode" value="heavy" /><span class="dot"></span><span class="lv-label">めっちゃ</span></label>
+                      <label class="lv lv5"><input type="radio" name="usage_ClaudeCode" value="work" /><span class="dot"></span><span class="lv-label">仕事で</span></label>
+                    </div>
+                    <label class="tr-paid" title="課金している(任意)">
+                      <input type="checkbox" name="paid_ClaudeCode" value="yes" />
+                      <span class="paid-chip" aria-hidden="true">¥</span>
+                      <span class="sr-only">Claude Code に課金している</span>
+                    </label>
+                  </div>
+
+                  <div class="tool-row" data-tool="Perplexity">
+                    <span class="tr-name">Perplexity</span>
+                    <div class="tr-scale" role="radiogroup" aria-label="Perplexity の使用感">
+                      <label class="lv lv0"><input type="radio" name="usage_Perplexity" value="none" checked /><span class="dot"></span><span class="lv-label">使ってない</span></label>
+                      <label class="lv lv1"><input type="radio" name="usage_Perplexity" value="curious" /><span class="dot"></span><span class="lv-label">気になってる</span></label>
+                      <label class="lv lv2"><input type="radio" name="usage_Perplexity" value="occasional" /><span class="dot"></span><span class="lv-label">たまに</span></label>
+                      <label class="lv lv3"><input type="radio" name="usage_Perplexity" value="weekly" /><span class="dot"></span><span class="lv-label">週数回</span></label>
+                      <label class="lv lv4"><input type="radio" name="usage_Perplexity" value="heavy" /><span class="dot"></span><span class="lv-label">めっちゃ</span></label>
+                      <label class="lv lv5"><input type="radio" name="usage_Perplexity" value="work" /><span class="dot"></span><span class="lv-label">仕事で</span></label>
+                    </div>
+                    <label class="tr-paid" title="課金している(任意)">
+                      <input type="checkbox" name="paid_Perplexity" value="yes" />
+                      <span class="paid-chip" aria-hidden="true">¥</span>
+                      <span class="sr-only">Perplexity に課金している</span>
+                    </label>
+                  </div>
+
+                  <div class="tool-row" data-tool="NotebookLM">
+                    <span class="tr-name">NotebookLM</span>
+                    <div class="tr-scale" role="radiogroup" aria-label="NotebookLM の使用感">
+                      <label class="lv lv0"><input type="radio" name="usage_NotebookLM" value="none" checked /><span class="dot"></span><span class="lv-label">使ってない</span></label>
+                      <label class="lv lv1"><input type="radio" name="usage_NotebookLM" value="curious" /><span class="dot"></span><span class="lv-label">気になってる</span></label>
+                      <label class="lv lv2"><input type="radio" name="usage_NotebookLM" value="occasional" /><span class="dot"></span><span class="lv-label">たまに</span></label>
+                      <label class="lv lv3"><input type="radio" name="usage_NotebookLM" value="weekly" /><span class="dot"></span><span class="lv-label">週数回</span></label>
+                      <label class="lv lv4"><input type="radio" name="usage_NotebookLM" value="heavy" /><span class="dot"></span><span class="lv-label">めっちゃ</span></label>
+                      <label class="lv lv5"><input type="radio" name="usage_NotebookLM" value="work" /><span class="dot"></span><span class="lv-label">仕事で</span></label>
+                    </div>
+                    <label class="tr-paid" title="課金している(任意)">
+                      <input type="checkbox" name="paid_NotebookLM" value="yes" />
+                      <span class="paid-chip" aria-hidden="true">¥</span>
+                      <span class="sr-only">NotebookLM に課金している</span>
+                    </label>
+                  </div>
+
+                  <div class="tool-row" data-tool="ローカルLLM">
+                    <span class="tr-name">ローカルLLM</span>
+                    <div class="tr-scale" role="radiogroup" aria-label="ローカルLLM の使用感">
+                      <label class="lv lv0"><input type="radio" name="usage_LocalLLM" value="none" checked /><span class="dot"></span><span class="lv-label">使ってない</span></label>
+                      <label class="lv lv1"><input type="radio" name="usage_LocalLLM" value="curious" /><span class="dot"></span><span class="lv-label">気になってる</span></label>
+                      <label class="lv lv2"><input type="radio" name="usage_LocalLLM" value="occasional" /><span class="dot"></span><span class="lv-label">たまに</span></label>
+                      <label class="lv lv3"><input type="radio" name="usage_LocalLLM" value="weekly" /><span class="dot"></span><span class="lv-label">週数回</span></label>
+                      <label class="lv lv4"><input type="radio" name="usage_LocalLLM" value="heavy" /><span class="dot"></span><span class="lv-label">めっちゃ</span></label>
+                      <label class="lv lv5"><input type="radio" name="usage_LocalLLM" value="work" /><span class="dot"></span><span class="lv-label">仕事で</span></label>
+                    </div>
+                    <label class="tr-paid" title="課金している(任意)">
+                      <input type="checkbox" name="paid_LocalLLM" value="yes" />
+                      <span class="paid-chip" aria-hidden="true">¥</span>
+                      <span class="sr-only">ローカルLLM に課金している</span>
+                    </label>
+                  </div>
+                  </div>
+
+                  <div class="tool-row-add-wrap">
+                    <button type="button" class="tool-row-add" id="add-tool-btn">
+                      <span class="plus" aria-hidden="true">+</span>
+                      <span>その他のツールを追加</span>
+                    </button>
+                    <span class="add-hint">Cline、Devin、v0、Raycast AI、自作Bot…</span>
+                  </div>
+                </div>            </div>
+
+            <div class="step-nav">
+              <button type="button" class="prev" data-jump="2">戻る</button>
+              <button type="button" class="next" data-jump="4">次の標高へ</button>
+            </div>
+          </section>
+
+          <!-- STEP 04 -->
+          <section class="form-step" id="step-4" data-step="4">
+            <div class="step-head">
+              <div class="step-number">04</div>
+              <div class="step-title">
+                <h2>おっと、分かれ道だ。</h2>
+                <p>どの道を行きたいか教えてくれ。</p>
+              </div>
+              <div class="step-altitude">
+                <b>2400m</b>
+                <span>雲の上</span>
+                <span class="alt-band">Above Clouds</span>
+              </div>
+            </div>
+
+            <div class="fields">
+              <fieldset>
+                <legend>関心があるテーマ <span class="opt" style="border:none;color:var(--ink-soft);">複数可</span></legend>
+                <div class="check-grid">
+                  <label class="opt check"><input type="checkbox" name="interests" value="会議ログ要約" /><span class="box"></span>会議ログ要約</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="字幕ログ活用" /><span class="box"></span>字幕ログ活用</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="仕様整理" /><span class="box"></span>仕様整理</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="コード生成" /><span class="box"></span>コード生成</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="レビュー補助" /><span class="box"></span>レビュー補助</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="調査・要約" /><span class="box"></span>調査・要約</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="非同期共有" /><span class="box"></span>非同期共有</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="マルチエージェント" /><span class="box"></span>マルチエージェント</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="MCP / ツール連携" /><span class="box"></span>MCP / ツール連携</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="手話・視覚UI" /><span class="box"></span>手話・視覚UI</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="リアルタイム文字起こし" /><span class="box"></span>リアルタイム文字起こし</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="翻訳・多言語" /><span class="box"></span>翻訳・多言語</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="プロンプト設計" /><span class="box"></span>プロンプト設計</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="RAG / ナレッジ検索" /><span class="box"></span>RAG / ナレッジ検索</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="エージェント評価" /><span class="box"></span>エージェント評価</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="データ分析・可視化" /><span class="box"></span>データ分析・可視化</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="テスト自動化" /><span class="box"></span>テスト自動化</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="ドキュメント生成" /><span class="box"></span>ドキュメント生成</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="画像・動画生成" /><span class="box"></span>画像・動画生成</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="音声→テキスト変換" /><span class="box"></span>音声→テキスト変換</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="ワークフロー自動化" /><span class="box"></span>ワークフロー自動化</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="ローカルLLM運用" /><span class="box"></span>ローカルLLM運用</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="セキュリティ・プライバシー" /><span class="box"></span>セキュリティ・プライバシー</label>
+                  <label class="opt check"><input type="checkbox" name="interests" value="ファインチューニング" /><span class="box"></span>ファインチューニング</label>
+                </div>
+              </fieldset>
+
+              <div class="field" data-prompt="goal">
+                <label class="label" for="f-goal">AIで何を達成したいですか <span class="req">REQ</span></label>
+                <span class="hint">仕事でもプライベートでもOK。「こうなったら最高」を自由に。</span>
+                <textarea id="f-goal" name="goal" rows="5" placeholder="例: 会議やチャットの情報を、あとから追いやすい仕様・Issue・TODOに変換したい" required></textarea>
+                <div class="field-tools">
+                  <button type="button" class="prompt-btn" data-prompt-for="goal">
+                    <span class="pb-icon" aria-hidden="true">✦</span>
+                    <span class="pb-label">AIに相談するプロンプトをコピー</span>
+                    <span class="pb-hint">これまでの回答も一緒に渡します</span>
+                  </button>
+                  <div class="counter"><span class="now">0</span> / 500</div>
+                </div>
+                <div class="error-msg">入力してください</div>
+              </div>
+
+              <div class="field" data-prompt="pain">
+                <label class="label" for="f-pain">聞こえる前提の開発・会議・情報共有で、変えたい場面 <span class="opt">Optional</span></label>
+                <span class="hint">この勉強会の方向を決める重要なインプットです。</span>
+                <textarea id="f-pain" name="deafWorkflowPain" rows="5" placeholder="例: 会議中の決定事項が音声側で流れてしまい、後からタスク化しにくい"></textarea>
+                <div class="field-tools">
+                  <button type="button" class="prompt-btn" data-prompt-for="pain">
+                    <span class="pb-icon" aria-hidden="true">✦</span>
+                    <span class="pb-label">AIに相談するプロンプトをコピー</span>
+                    <span class="pb-hint">思い当たる場面を引き出します</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-nav">
+              <button type="button" class="prev" data-jump="3">戻る</button>
+              <button type="button" class="next" data-jump="5">次の標高へ</button>
+            </div>
+          </section>
+
+          <!-- STEP 05 -->
+          <section class="form-step" id="step-5" data-step="5">
+            <div class="step-head">
+              <div class="step-number">05</div>
+              <div class="step-title">
+                <h2>軽い宿題</h2>
+                <p>資料化までは不要。3〜5分で話せるメモで十分です。</p>
+              </div>
+              <div class="step-altitude">
+                <b>2900m</b>
+                <span>岩場</span>
+                <span class="alt-band">Spire</span>
+              </div>
+            </div>
+
+            <div class="fields">
+              <div class="field" data-prompt="homework">
+                <label class="label" for="f-hw">最近AIを使って助かったこと、または失敗したこと <span class="req">REQ</span></label>
+                <span class="hint">何に困っていたか / AIに何を任せたか / 何が良かったか / どこが微妙だったか</span>
+                <textarea id="f-hw" name="homeworkExample" rows="6" placeholder="箇条書きでも、短い物語でも。" required></textarea>
+                <div class="field-tools">
+                  <button type="button" class="prompt-btn" data-prompt-for="homework">
+                    <span class="pb-icon" aria-hidden="true">✦</span>
+                    <span class="pb-label">AIに相談するプロンプトをコピー</span>
+                    <span class="pb-hint">使っているツールから思い出す</span>
+                  </button>
+                  <div class="counter"><span class="now">0</span> / 800</div>
+                </div>
+                <div class="error-msg">入力してください</div>
+              </div>
+
+              <div class="field" data-prompt="build">
+                <label class="label" for="f-build">当日つくってみたいもの <span class="opt">Optional</span></label>
+                <span class="hint">チーム決めやテーマ投票に使います。</span>
+                <textarea id="f-build" name="buildIdea" rows="4" placeholder="例: 字幕ログをIssue化するツール、PRレビューをやさしい日本語で要約するBot"></textarea>
+                <div class="field-tools">
+                  <button type="button" class="prompt-btn" data-prompt-for="build">
+                    <span class="pb-icon" aria-hidden="true">✦</span>
+                    <span class="pb-label">AIに相談するプロンプトをコピー</span>
+                    <span class="pb-hint">興味のあるテーマから逆算</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-nav">
+              <button type="button" class="prev" data-jump="4">戻る</button>
+              <button type="button" class="next" data-jump="6">次の標高へ</button>
+            </div>
+          </section>
+
+          <!-- STEP 06 -->
+          <section class="form-step" id="step-6" data-step="6">
+            <div class="step-head">
+              <div class="step-number">06</div>
+              <div class="step-title">
+                <h2>当日の参加に必要なこと</h2>
+                <p>情報保障や食事まわりで共有しておきたいことを入力してください。</p>
+              </div>
+              <div class="step-altitude">
+                <b>3100m</b>
+                <span>肩</span>
+                <span class="alt-band">Shoulder</span>
+              </div>
+            </div>
+
+            <div class="fields">
+              <div class="field">
+                <label class="label" for="f-notes">運営への連絡 <span class="opt">Optional</span></label>
+                <textarea id="f-notes" name="notes" rows="3" placeholder="その他、事前に伝えたいこと"></textarea>
+              </div>
+            </div>
+
+            <div class="step-nav">
+              <button type="button" class="prev" data-jump="5">戻る</button>
+              <button type="button" class="next" data-jump="7">山頂へ</button>
+            </div>
+          </section>
+
+          <!-- SUMMIT / SUBMIT -->
+          <section class="summit-band" id="step-7" data-step="7" data-screen-label="Summit">
+            <div class="summit-inner">
+              <p class="section-label">Summit · 3200m</p>
+              <h2>回答をまとめて、旗を立てる。</h2>
+              <p>
+                送信先はDiscord接続前のプロトタイプです。「旗を立てる」を押すと運営側に回答が届きます。送信=登頂です。
+              </p>
+
+              <div class="summit-actions">
+                <button type="submit" class="btn">
+                  <span>旗を立てる(送信)</span>
+                  <span aria-hidden="true">▲</span>
+                </button>
+                <button type="button" class="btn ghost" id="clear-draft">下書きを破棄</button>
+              </div>
+
+              <div class="submit-state">
+                <span>DRAFT STATE: <b id="state-label">—</b></span>
+                <span id="last-saved">—</span>
+              </div>
+            </div>
+          </section>
+
+        </form>
+
+        <footer class="footer">
+          <span>AI Workshop · Vol.01 — Prototype</span>
+          <span>Prototype · 2026.04</span>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Save chip -->
+    <div class="save-chip" id="save-chip" role="status" aria-live="polite">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="text">下書きを保存しました</span>
+    </div>
+
+    <!-- Summit overlay -->
+    <div class="summit-overlay" id="summit-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="summit-title">
+      <div class="summit-card">
+        <button class="close" id="summit-close" aria-label="閉じる">×</button>
+        <div class="top-strip">
+          <!-- Peak + flag-planting scene -->
+          <svg class="summit-scene" viewBox="0 0 600 220" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+            <defs>
+              <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--sky-top)"/>
+                <stop offset="100%" stop-color="var(--sky-low)"/>
+              </linearGradient>
+              <linearGradient id="peakG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--peak-far)"/>
+                <stop offset="100%" stop-color="var(--peak-mid)"/>
+              </linearGradient>
+            </defs>
+            <!-- sky -->
+            <rect x="0" y="0" width="600" height="220" fill="url(#skyG)"/>
+            <!-- sun glow -->
+            <circle class="sun" cx="470" cy="60" r="26" fill="#ffe6a8" opacity="0.85"/>
+            <!-- far peaks -->
+            <path d="M0 180 L80 120 L160 160 L240 110 L320 150 L400 100 L480 140 L560 108 L600 126 L600 220 L0 220 Z" fill="url(#peakG)" opacity="0.55"/>
+            <!-- near peak (the summit) -->
+            <path class="near-peak" d="M0 220 L80 196 L160 184 L240 158 L300 96 L360 160 L440 184 L520 196 L600 210 L600 220 Z" fill="var(--peak-near)"/>
+            <!-- snow cap on the summit triangle -->
+            <path class="snow-cap" d="M260 126 L300 96 L340 136 L320 128 L300 132 L280 126 Z" fill="#f7f3ea"/>
+            <!-- climber silhouette (arrives at peak) -->
+            <g class="scene-climber" transform="translate(282 112)">
+              <circle cx="0" cy="-6" r="4" fill="var(--ink)"/>
+              <path d="M-2 -2 L-6 10 L-2 10 L0 2 L2 10 L6 10 L2 -2 Z" fill="var(--ink)"/>
+            </g>
+            <!-- flagpole + flag (animated) -->
+            <g class="scene-flag" transform="translate(300 96)">
+              <line class="pole" x1="0" y1="0" x2="0" y2="-62" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>
+              <g class="cloth-wrap" transform="translate(2 -60)">
+                <path class="cloth" d="M0 0 L44 2 L36 12 L44 22 L0 20 Z" fill="var(--flag)"/>
+              </g>
+              <!-- impact burst when pole lands -->
+              <g class="burst" transform="translate(0 0)">
+                <line x1="0" y1="0" x2="-16" y2="-10" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="0" y1="0" x2="16" y2="-10" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="0" y1="0" x2="-20" y2="2" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="0" y1="0" x2="20" y2="2" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="0" y1="0" x2="-10" y2="-18" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="0" y1="0" x2="10" y2="-18" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"/>
+              </g>
+            </g>
+            <!-- snow confetti -->
+            <g class="confetti" aria-hidden="true">
+              <circle cx="120" cy="40"  r="2" fill="#fff"/>
+              <circle cx="180" cy="20"  r="1.5" fill="#fff"/>
+              <circle cx="240" cy="50"  r="2" fill="#fff"/>
+              <circle cx="340" cy="30"  r="1.5" fill="#fff"/>
+              <circle cx="380" cy="60"  r="2" fill="#fff"/>
+              <circle cx="440" cy="24"  r="1.5" fill="#fff"/>
+              <circle cx="500" cy="48"  r="2" fill="#fff"/>
+              <circle cx="90"  cy="70"  r="1.5" fill="#fff"/>
+              <circle cx="200" cy="90"  r="2" fill="var(--flag)"/>
+              <circle cx="410" cy="84"  r="2" fill="var(--flag)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="card-body">
+          <p class="elev">Elevation · 3200m</p>
+          <h3 id="summit-title">山頂到達。旗を立てました。</h3>
+          <p class="ly" id="summit-msg">
+            回答は運営に届きました。当日を楽しみに。
+          </p>
+          <div class="email-receipt" id="email-receipt" hidden>
+            <div class="mail-lines">
+              <span class="mail-line"><b>TO</b><i id="receipt-to">—</i></span>
+              <span class="mail-line"><b>SUBJECT</b><i>AI勉強会 事前フォーム 回答控え</i></span>
+            </div>
+            <p class="mail-note">メーラーが開かない場合は、下のボタンから内容をコピーして送信してください。</p>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button type="button" class="btn" id="summit-email">
+            <span>回答の控えをメール送信</span>
+            <span aria-hidden="true">✉</span>
+          </button>
+          <button type="button" class="btn ghost" id="summit-copy-json">回答JSONをコピー</button>
+          <button type="button" class="btn ghost" id="summit-edit">閉じる</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/app.js"></script>
+  </body>
+</html>
