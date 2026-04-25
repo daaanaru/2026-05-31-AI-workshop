@@ -59,7 +59,7 @@
           <span class="sp-l sp-l1">登る</span><span class="sp-l sp-l2">山を</span><span class="sp-l sp-l3">決めよう。</span>
         </h1>
         <p class="splash-lede" id="sp-p">
-          2026年5月31日、12時間。まずは、あなたがどこから登るのか教えてください。
+          2026年5月31日。まずは、あなたがどこから登るのか教えてください。
         </p>
         <button class="splash-cta" id="sp-cta" type="button">
           <span>事前入力を始める</span>
@@ -166,7 +166,7 @@
 
         <div class="map-legend">
           <div class="kv"><span>DATE</span><b>05.31</b></div>
-          <div class="kv"><span>DURATION</span><b>12H</b></div>
+          <div class="kv"><span>DURATION</span><b>9H</b></div>
           <div class="kv"><span>CREW</span><b><span id="crew-count">0</span> / 6</b></div>
           <div class="kv"><span>TZ</span><b>JST+9</b></div>
         </div>
@@ -204,7 +204,7 @@
             </span>
             <span class="date-block">
               2026.05.31 SUN
-              <small>9:00 — 21:00 JST</small>
+              <small>10:00 — 19:00 JST</small>
             </span>
           </nav>
 
@@ -223,7 +223,7 @@
               </div>
               <div class="hm-item" role="listitem">
                 <span class="hm-label">DURATION</span>
-                <span class="hm-value">09:00 — 21:00</span>
+                <span class="hm-value">10:00 — 19:00</span>
               </div>
               <div class="hm-item" role="listitem">
                 <span class="hm-label">APPLIED</span>
@@ -248,14 +248,14 @@
             <p class="section-label">The Mountain</p>
             <h2>この1日で目指すところ</h2>
             <p>
-              初回のAI勉強会では、AIツールの紹介だけで終わらせず、デフエンジニアが自分たちの開発・会議・情報共有をAIでどう強くできるかを考えます。
+              初回のAI勉強会では、AIツールの紹介だけで終わらせず、自分たちの開発や仕事をAIでどう変えられるかを手を動かして考えます。
             </p>
             <p>
-              朝から晩までの12時間、最後はチームで小さな成果物か、明日から運用できるワークフローを発表して山頂に旗を立てます。このフォームは、当日のチーム分け・テーマ選び・ハンズオン調整のための現在地調査です。
+              1日かけて、最後はチームで小さな成果物か、明日から運用できるワークフローを発表して山頂に旗を立てます。このフォームは、当日のチーム分け・テーマ選び・ハンズオン調整のための現在地調査です。
             </p>
 
             <div class="intro-stats">
-              <div class="stat"><span class="n">12<small>h</small></span><span class="l">Duration</span></div>
+              <div class="stat"><span class="n">9<small>h</small></span><span class="l">Duration</span></div>
               <div class="stat"><span class="n">06</span><span class="l">Participants</span></div>
               <div class="stat"><span class="n">06</span><span class="l">Sections</span></div>
               <div class="stat"><span class="n">∞</span><span class="l">AI Tools</span></div>
@@ -663,18 +663,6 @@
                 <div class="error-msg">入力してください</div>
               </div>
 
-              <div class="field" data-prompt="pain">
-                <label class="label" for="f-pain">聞こえる前提の開発・会議・情報共有で、変えたい場面 <span class="opt">Optional</span></label>
-                <span class="hint">この勉強会の方向を決める重要なインプットです。</span>
-                <textarea id="f-pain" name="deafWorkflowPain" rows="5" placeholder="例: 会議中の決定事項が音声側で流れてしまい、後からタスク化しにくい"></textarea>
-                <div class="field-tools">
-                  <button type="button" class="prompt-btn" data-prompt-for="pain">
-                    <span class="pb-icon" aria-hidden="true">✦</span>
-                    <span class="pb-label">AIに相談するプロンプトをコピー</span>
-                    <span class="pb-hint">思い当たる場面を引き出します</span>
-                  </button>
-                </div>
-              </div>
             </div>
 
             <div class="step-nav">
@@ -750,6 +738,22 @@
             </div>
 
             <div class="fields">
+              <fieldset>
+                <legend>当日プレゼンしたいですか？ <span class="opt" style="border:none;color:var(--ink-soft);">任意</span></legend>
+                <span class="hint" style="font-size:12.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:6px;display:block;">AIに関するテーマなら何でもOK。5〜15分くらいの軽い発表です。</span>
+                <div class="option-grid">
+                  <label class="opt radio"><input type="radio" name="presentationWilling" value="want" /><span class="box"></span>プレゼンしたい</label>
+                  <label class="opt radio"><input type="radio" name="presentationWilling" value="maybe" /><span class="box"></span>ネタあるかも</label>
+                  <label class="opt radio"><input type="radio" name="presentationWilling" value="listen" /><span class="box"></span>聴く専門</label>
+                </div>
+              </fieldset>
+
+              <div class="field" id="presentation-topic-field" style="display:none;">
+                <label class="label" for="f-pres-topic">どんなネタがありますか？ <span class="opt">Optional</span></label>
+                <span class="hint">ざっくりでOK。「AIで○○やってみた話」くらいの粒度で。</span>
+                <textarea id="f-pres-topic" name="presentationTopic" rows="3" placeholder="例: Claude CodeでAI幕府を運用してる話、NotebookLMで議事録を自動要約してみた、等"></textarea>
+              </div>
+
               <div class="field">
                 <label class="label" for="f-notes">運営への連絡 <span class="opt">Optional</span></label>
                 <textarea id="f-notes" name="notes" rows="3" placeholder="その他、事前に伝えたいこと"></textarea>

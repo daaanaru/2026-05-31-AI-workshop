@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AI勉強会 タイムテーブル — 2026.05.31</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  @page { size: A4 landscape; margin: 12mm; }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  body {
+    font-family: "Noto Sans JP", sans-serif;
+    color: #1b2a1f;
+    background: #eef0e1;
+    padding: 24px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #cfd5b4;
+    padding: 32px 36px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid #1b2a1f;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .header .meta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: #4f6251;
+    text-align: right;
+    letter-spacing: 0.08em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  th {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #4f6251;
+    text-align: left;
+    padding: 6px 10px;
+    border-bottom: 1px solid #cfd5b4;
+    background: #f5f6ec;
+  }
+
+  td {
+    padding: 10px 10px;
+    border-bottom: 1px solid #e8ebd8;
+    vertical-align: top;
+  }
+
+  tr.break td {
+    background: #f5f6ec;
+    color: #6b7a52;
+    font-style: italic;
+    font-size: 12px;
+  }
+
+  tr.highlight td {
+    background: #f0f5e8;
+    border-left: 3px solid #c15a2b;
+  }
+
+  .time {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    color: #2f5f3a;
+  }
+
+  .title {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .format {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: #6b5a3a;
+    background: #f5f0e6;
+    padding: 2px 6px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  .notes {
+    font-size: 12px;
+    color: #4f6251;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 600px) {
+    .page { padding: 16px; }
+    .header { flex-direction: column; gap: 8px; }
+    .header .meta { text-align: left; }
+    table, thead, tbody, th, td, tr { display: block; }
+    thead { display: none; }
+    tr { margin-bottom: 12px; border: 1px solid #e8ebd8; padding: 10px 12px; }
+    tr.break { padding: 8px 12px; }
+    td { padding: 2px 0; border: none; }
+    td.time { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    td:nth-child(3) { display: inline; }
+    td:nth-child(4) { margin-top: 4px; }
+    .wifi-box { display: block; font-size: 11px; }
+    .footer { flex-direction: column; gap: 6px; }
+  }
+
+  .footer {
+    margin-top: 16px;
+    padding-top: 10px;
+    border-top: 1px dashed #cfd5b4;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    color: #6b7a52;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .wifi-box {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #f5f6ec;
+    border: 1px dashed #6b7a52;
+    font-size: 12px;
+    display: inline-block;
+  }
+  .wifi-box b { font-family: "JetBrains Mono", monospace; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div>
+      <h1>Deaf Engineers AI Workshop Vol.01</h1>
+      <div style="font-size:13px;color:#4f6251;margin-top:4px;">登る山を決めよう。</div>
+    </div>
+    <div class="meta">
+      2026.05.31 SUN<br/>
+      10:00 — 19:00 JST<br/>
+      CREW: 6 ENGINEERS
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:120px;">Time</th>
+        <th style="width:280px;">Session</th>
+        <th style="width:80px;">Format</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="time">10:00 – 10:15</td>
+        <td class="title">集合・セットアップ</td>
+        <td><span class="format">FREE</span></td>
+        <td class="notes">PC・Wi-Fi接続確認、席決め</td>
+      </tr>
+      <tr>
+        <td class="time">10:15 – 10:30</td>
+        <td class="title">自己紹介ラウンド</td>
+        <td><span class="format">ALL</span></td>
+        <td class="notes">1人2分。名前・使ってるAI・今日やりたいこと</td>
+      </tr>
+      <tr class="highlight">
+        <td class="time">10:30 – 11:00</td>
+        <td class="title">Keynote: AIツール遍歴と展望</td>
+        <td><span class="format">TALK</span></td>
+        <td class="notes">下田プレゼン。30分</td>
+      </tr>
+      <tr>
+        <td class="time">11:00 – 11:30</td>
+        <td class="title">参加者プレゼン（有志）</td>
+        <td><span class="format">TALK</span></td>
+        <td class="notes">1-2名 × 15分。なければ座談会に切替</td>
+      </tr>
+      <tr>
+        <td class="time">11:30 – 12:00</td>
+        <td class="title">テーマ出し＋チーム分け</td>
+        <td><span class="format">WS</span></td>
+        <td class="notes">「作りたいもの」投票 → チーム決定</td>
+      </tr>
+      <tr class="break">
+        <td class="time">12:00 – 13:00</td>
+        <td>昼飯（近隣）</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="time">13:00 – 13:15</td>
+        <td class="title">スプリント計画</td>
+        <td><span class="format">TEAM</span></td>
+        <td class="notes">「16:30にデモ」前提でMVP決め</td>
+      </tr>
+      <tr class="highlight">
+        <td class="time">13:15 – 16:15</td>
+        <td class="title">Hackathon</td>
+        <td><span class="format">TEAM</span></td>
+        <td class="notes">3時間スプリント。14:45頃に休憩+中間チェック（5分/チーム）</td>
+      </tr>
+      <tr class="break">
+        <td class="time">16:15 – 16:30</td>
+        <td>休憩</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="highlight">
+        <td class="time">16:30 – 17:15</td>
+        <td class="title">Demo Day</td>
+        <td><span class="format">ALL</span></td>
+        <td class="notes">各チーム15分。動くもの or ワークフローのデモ</td>
+      </tr>
+      <tr>
+        <td class="time">17:15 – 18:00</td>
+        <td class="title">Free Time</td>
+        <td><span class="format">FREE</span></td>
+        <td class="notes">他の人のツール触る、雑談、1on1で深掘り</td>
+      </tr>
+      <tr>
+        <td class="time">18:00 – 18:30</td>
+        <td class="title">振り返り＋次回どうする？</td>
+        <td><span class="format">ALL</span></td>
+        <td class="notes">「今日の収穫」シェア、Vol.02の方向性</td>
+      </tr>
+      <tr class="break">
+        <td class="time">18:30 – 19:00</td>
+        <td>撤収 / 有志で飯</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="wifi-box">
+    Wi-Fi: <b>【SSID】</b> / PW: <b>【パスワード】</b>
+  </div>
+
+  <div class="footer">
+    <span>DEAF ENGINEERS AI WORKSHOP · VOL.01</span>
+    <span>持ち物: PC（必須）· 充電器 · やる気</span>
+  </div>
+</div>
+</body>
+</html>

@@ -236,7 +236,6 @@
     const interests = arr(d.interests);
     if (interests.length) lines.push(`- 気になるテーマ: ${interests.join(", ")}`);
     if (d.goal) lines.push(`- AIで達成したいこと: ${String(d.goal).replace(/\n+/g, " / ")}`);
-    if (d.deafWorkflowPain) lines.push(`- 変えたい場面: ${String(d.deafWorkflowPain).replace(/\n+/g, " / ")}`);
     if (d.homeworkExample) lines.push(`- 最近のAIエピソード: ${String(d.homeworkExample).replace(/\n+/g, " / ")}`);
     return lines.join("\n");
   }
@@ -256,7 +255,7 @@ ${ctx() || "(まだほとんど入力していません)"}
 
     goal: () => `あなたは、AIの使い道を一緒に考えるパートナーです。
 「AIで何を達成したいか」を、私のこれまでの回答を踏まえて3案、提案してください。
-聞こえる前提で設計された開発・会議・情報共有を、AIで作り替えることに興味があります。
+自分の開発や仕事をAIでもっと良くすることに興味があります。
 
 # これまでに私が答えた内容
 ${ctx() || "(まだほとんど入力していません)"}
@@ -267,18 +266,6 @@ ${ctx() || "(まだほとんど入力していません)"}
 3. 同上
 - どれも私の得意領域と今使っているAIツールで手が届く範囲にしてください
 - 最後に「一番挑戦的な1つ」を選んで理由を1行`,
-
-    pain: () => `あなたは、デフ(ろう・難聴)エンジニアの働き方を観察するUXリサーチャーです。
-私のこれまでの回答をもとに、「聞こえる前提で設計された開発・会議・情報共有」で
-不便・もったいない場面を5つ、具体的なシーンとして書き出してください。
-
-# これまでに私が答えた内容
-${ctx() || "(まだほとんど入力していません)"}
-
-# 出力形式
-- 各項目: 【場面】どこで起きるか / 【何が流れてしまうか】 / 【AIで置き換えられそうな部分】
-- 抽象論は禁止。必ず「ある日の〇〇中」のシーンから始めること
-- 私自身が気づいていなさそうな盲点を1つは混ぜてください`,
 
     homework: () => `あなたは、AI使用経験の振り返りを手伝うコーチです。
 私のこれまでの回答をもとに、「最近AIを使って助かった / 失敗した」エピソードを1つ思い出すのを手伝ってください。
@@ -660,9 +647,10 @@ ${ctx() || "(まだほとんど入力していません)"}
     otherAiTools: "その他使っているAI",
     interests: "関心があるテーマ",
     goal: "AIで達成したいこと",
-    deafWorkflowPain: "聞こえる前提で変えたい場面",
     homeworkExample: "最近のAIエピソード",
     buildIdea: "当日つくってみたいもの",
+    presentationWilling: "プレゼン意欲",
+    presentationTopic: "プレゼンのネタ",
     notes: "運営への連絡"
   };
 
@@ -813,6 +801,24 @@ ${ctx() || "(まだほとんど入力していません)"}
       btn.textContent = "✓ コピーしました";
     });
   }
+
+  // -----------------------------------------------------------
+  // Presentation field — show/hide topic textarea
+  // -----------------------------------------------------------
+  (function presentationToggle() {
+    const topicField = document.getElementById("presentation-topic-field");
+    if (!topicField) return;
+    form.addEventListener("change", (e) => {
+      if (e.target.name !== "presentationWilling") return;
+      const val = e.target.value;
+      topicField.style.display = (val === "want" || val === "maybe") ? "" : "none";
+    });
+    // Restore visibility on page load if draft has a value
+    const checked = form.querySelector('input[name="presentationWilling"]:checked');
+    if (checked && (checked.value === "want" || checked.value === "maybe")) {
+      topicField.style.display = "";
+    }
+  })();
 
   document.getElementById("clear-draft").addEventListener("click", () => {
     if (!confirm("下書きを破棄して入力をクリアしますか?")) return;

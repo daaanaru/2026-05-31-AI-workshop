@@ -12,9 +12,10 @@ const HEADERS = [
   "otherAiTools",
   "interests",
   "goal",
-  "deafWorkflowPain",
   "homeworkExample",
   "buildIdea",
+  "presentationWilling",
+  "presentationTopic",
   "notes",
   "rawJson"
 ];
